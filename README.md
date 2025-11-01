@@ -27,12 +27,19 @@ It focuses on simplicity, responsiveness, and minimalism — a clean, no-fuss re
 ## 🎹 Key Bindings
 
 **↑ / ↓** Navigate through lists
+
 **Enter** Select feed / article / bookmark
+
 **B**	Bookmark the selected article
+
 **D**	Delete feed or bookmark
+
 **R**	Refresh current feed
+
 **S**	Save all feeds and bookmarks
+
 **Q**	Quit the app
+
 **H**	Help popup
 
 **All feeds and bookmarks are automatically saved when you quit the application.**
