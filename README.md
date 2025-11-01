@@ -86,6 +86,8 @@ On first launch, if no feeds exist, you’ll see a helpful prompt to add some.
 
 ## 🧭 Roadmap
 
+- Export Markdown files to disk
+  
 - Configurable auto-refresh interval
 
 - Optional OPML import/export
@@ -95,7 +97,7 @@ On first launch, if no feeds exist, you’ll see a helpful prompt to add some.
 
 ## 🧡 Credits
 
-Built by [Dave] using
+Built by me, **NaughtyRobot**, using
 
 PyCUI for the TUI
 
