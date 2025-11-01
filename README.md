@@ -21,6 +21,9 @@ It focuses on simplicity, responsiveness, and minimalism — a clean, no-fuss re
 
 - Keyboard-driven navigation for fast, distraction-free reading
 
+# Screenshots
+![Screenshot]{https://github.com/NaughtyRobot/PyCUI-RSS-Reader/blob/main/thumbnails/screen01.png}
+
 ## 🎹 Key Bindings
 
 **↑ / ↓** Navigate through lists
