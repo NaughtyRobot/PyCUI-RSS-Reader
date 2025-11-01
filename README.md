@@ -51,6 +51,21 @@ pip install py-cui feedparser trafilatura
 Glow
  (for Markdown article rendering)
 
+## Installation
+
+```
+git clone https://github.com/NaughtyRobot/PyCUI-RSS-Reader.git
+cd PyCUI-RSS-Reader
+pip install -r requirements.txt
+python3 main.py
+```
+
+Also:
+```
+sudo apt install glow
+```
+Needed to view Markdown articles
+
 ## ▶️ Usage
 
 Run from the project root:
