@@ -38,3 +38,16 @@ def save_json(feed: dict, filename: str) -> bool:
             return True
     except (json.JSONDecodeError, OSError):
             return False
+
+def save_md(text: str, filename: str) -> bool:
+    """ Takes a string and filename. Saves supplied string as a markdown file.
+
+    Return:
+           True if saved OK, otherwise False
+    """
+    try:
+       with open (filename, 'w', encoding = 'utf-8') as f:
+           f.write(text)
+           return True
+    except OSError:
+        return False
