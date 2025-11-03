@@ -28,21 +28,21 @@ It focuses on simplicity, responsiveness, and minimalism — a clean, no-fuss re
 
 **↑ / ↓** Navigate through lists
 
-**Enter** Select feed / article / bookmark
+**Enter**: Select feed / article / bookmark
 
-**B**	Bookmark the selected article
+**B**:	Bookmark the selected article
 
-**D**	Delete feed or bookmark
+**D**:	Delete feed or bookmark
 
-**R**	Refresh current feed
+**R**:	Refresh current feed
 
-**S**	Save all feeds and bookmarks
+**S**:	Save all feeds and bookmarks
 
-**X** Export selected article or bookmark as markdown
+**X**: Export selected article or bookmark as markdown
 
-**Q**	Quit the app
+**Q**:	Quit the app
 
-**H**	Help popup
+**H**:	Help popup
 
 **All feeds and bookmarks are automatically saved when you quit the application.**
 
