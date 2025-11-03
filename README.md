@@ -13,6 +13,8 @@ It focuses on simplicity, responsiveness, and minimalism — a clean, no-fuss re
 
 - Bookmark stories for later
 
+- Export articles or bookmarks ar markdown files for later reading
+
 - Refresh individual feeds on demand
 
 - Persistent storage via JSON (feeds and bookmarks saved automatically)
@@ -95,8 +97,6 @@ On first launch, if no feeds exist, you’ll see a helpful prompt to add some.
 
 ## 🧭 Roadmap
 
-- Export Markdown files to disk
-  
 - Configurable auto-refresh interval
 
 - Optional OPML import/export
