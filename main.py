@@ -40,9 +40,11 @@ class Interface:
         self.link_menu.add_key_command(py_cui.keys.KEY_B_LOWER, self.add_bookmark)
         self.link_menu.add_key_command(py_cui.keys.KEY_ENTER, self.get_article)
         self.link_menu.add_key_command(py_cui.keys.KEY_R_LOWER, self.refresh_feed)
+        self.link_menu.add_key_command(py_cui.keys.KEY_X_LOWER, self.export_article_popup)
 
         self.bookmarks_menu.add_key_command(py_cui.keys.KEY_ENTER, self.get_bookmark)
         self.bookmarks_menu.add_key_command(py_cui.keys.KEY_D_LOWER, self.delete_bookmark)
+        self.bookmarks_menu.add_key_command(py_cui.keys.KEY_X_LOWER, self.export_article_popup)
 
     def add_feed(self, target: str = None, title: str = None):
         """ Add a new RSS feed to feedhandler.feeddict. 'target' and 'title' specifies an existing feed to refresh. """
@@ -168,6 +170,25 @@ class Interface:
         subprocess.run(['glow','-p'], input = help_text, text = True)
         os.system('reset')
 
+    def export_article_popup(self):
+        """ Show a Save As dialog window. Set the file type to '.md' and pass the filename to save_md() """
+        self.root.show_filedialog_popup(popup_type = 'saveas', callback = self.save_md, initial_dir = '.', ascii_icons = 'True', limit_extensions = ['.md'])
+
+    def save_md(self, result):
+        """ Take the supplied filename and grab the selected article URL from feed_nenu or bookmarks_menu,
+        use fh.get_article() to return the Markdownified article text as a string,
+        then pass the filename and article text to files.save.md() """
+        filename = result
+        if not filename.endswith('.md'): filename += '.md'
+        if self.link_menu.is_selected(): url = self.current_feed['headlines'][self.link_menu.get()]
+        if self.bookmarks_menu.is_selected(): url = fh.bookmarks_dict[self.bookmarks_menu.get()]
+        article_text = fh.get_article(url)
+
+        if files.save_md(article_text, filename ):
+            self.root.show_message_popup('Success', f"Saved as: {filename}")
+        else:
+            self.show_error_message(f"Failed to save file: {filename}")
+        
     def init_state(self):
         """Load saved feeds and bookmarks from JSON files and populate the interface."""
         fh.feed_dict = files.load_json('feeds.json') or {}
