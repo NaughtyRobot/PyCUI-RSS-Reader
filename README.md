@@ -38,6 +38,8 @@ It focuses on simplicity, responsiveness, and minimalism — a clean, no-fuss re
 
 **S**	Save all feeds and bookmarks
 
+**X** Export selected article or bookmark as markdown
+
 **Q**	Quit the app
 
 **H**	Help popup
