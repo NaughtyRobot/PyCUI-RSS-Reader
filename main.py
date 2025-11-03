@@ -161,6 +161,7 @@ class Interface:
             " **D**       : Delete feed or bookmark\n"
             " **R**       : Refresh current feed\n"
             " **S**       : Save all feeds and bookmarks\n"
+            " **X**       : Export selected file or bookmark as markdown\n"
             " **Q**       : Quit the app\n"
             " **H**       : Show this help\n\n"
             "**All feeds and bookmarks are automatically saved when you quit the application.**\n\n"
