@@ -13,7 +13,7 @@ It focuses on simplicity, responsiveness, and minimalism — a clean, no-fuss re
 
 - Bookmark stories for later
 
-- Export articles or bookmarks ar markdown files for later reading
+- Export articles or bookmarks as markdown files for later reading
 
 - Refresh individual feeds on demand
 
