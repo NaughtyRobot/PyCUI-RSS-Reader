@@ -1,6 +1,6 @@
 """Handles RSS feed parsing, article extraction, and bookmark management."""
 
-import datetime
+from datetime import datetime
 import feedparser as fp
 from trafilatura import fetch_url, extract
 
@@ -18,30 +18,68 @@ def add_feed(url: str, title:str= None) -> dict:
         or a string error message if the feed cannot be parsed.
     """
     
-    time_now = datetime.datetime.now()
-    rss = fp.parse(url)
+    time_now = datetime.now()
 
-    if rss.feed:
-        feed_title = rss.feed.title
+    try:
+        rss = fp.parse(url)
 
-        if feed_title in feed_dict and not title:
-            return 'Duplicate entry'
+        if rss.feed:
+            if len(rss.feed.title) > 0:
+                feed_title = rss.feed.title
+            else:
+                return 'Cannot parse feed - No title found'
 
-        if not title:
-            feed_dict[feed_title] = {}
-            feed_dict[feed_title]['title'] = feed_title
-            feed_dict[feed_title]['url'] = url
+            if feed_title in feed_dict and not title:
+                return 'Duplicate entry'
 
-        feed_dict[feed_title]['last_updated'] = time_now.strftime("%a %d %b %Y %H:%M")
-        feed_dict[feed_title]['headlines'] = {}
+            if not title:
+                feed_dict[feed_title] = {}
+                feed_dict[feed_title]['title'] = feed_title
+                feed_dict[feed_title]['url'] = url
 
-        for i, entry in enumerate(rss.entries[:MAX_HEADLINES]):
-            headline = rss.entries[i].title
-            feed_dict[feed_title]['headlines'][headline] = rss.entries[i].link
+            feed_dict[feed_title]['last_updated'] = time_now.strftime("%a %d %b %Y %H:%M")
+            feed_dict[feed_title]['headlines'] = {}
 
-        return feed_dict[feed_title]
+            for i, entry in enumerate(rss.entries[:MAX_HEADLINES]):
+                headline = rss.entries[i].title
+                feed_dict[feed_title]['headlines'][headline] = rss.entries[i].link
+
+            return feed_dict[feed_title]
+        else:
+            return 'Feed not found'
+
+    except Exception as error:
+        return error
+
+def set_interval(refresh_time: str):
+    """Add a global refresh interval for feeds in minutes. Stores it in feed_dict as an int"""
+    try:
+        feed_dict['refresh_interval'] = int(refresh_time)
+    except ValueError:
+        feed_dict['refresh_interval'] = 0
+
+def get_refresh_status(time_str: int) -> bool:
+    """ Determines whether the currently selected feeds last_updated>refresh_interval
+        by comparing feed['last_updated'] against datetime.now()
+        and converting the delta seconds into minutes.
+
+        Arguement:
+            The time_str: Current feeds last refresh time as an int
+        
+        Returns:
+            True if refresh is due or False if not.
+    """
+    time_now = datetime.now()
+
+    if 'refresh_interval' in feed_dict.keys() and feed_dict['refresh_interval'] != 0:
+        interval = feed_dict['refresh_interval']
     else:
-        return 'Feed not found'
+        return False
+
+    last_update = datetime.strptime(time_str, "%a %d %b %Y %H:%M")
+    diff = time_now - last_update
+    diff_minutes = diff.total_seconds() / 60
+    return diff_minutes > interval
 
 def add_bookmark(title: str, url:str) -> bool :
     """Add a bookmark for the given article if it doesn't already exist.
