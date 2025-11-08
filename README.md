@@ -136,4 +136,4 @@ On first launch, if no feeds exist, you’ll see a helpful prompt to add some.
 
 - Glow for Markdown rendering
 
-- Google Gemini Flash 2.5 Lite for article summaries
+- Google Gemini 2.5 Flash Lite for article summaries
