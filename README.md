@@ -81,7 +81,7 @@ Python 3.9+
 Dependencies:
 
 ```
-pip install py-cui feedparser trafilatura google-gen-ai
+pip install py-cui feedparser trafilatura google-genai
 ```
 
 
