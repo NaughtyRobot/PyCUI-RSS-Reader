@@ -21,6 +21,8 @@ It focuses on simplicity, responsiveness, and minimalism — a clean, no-fuss re
 
 - View article headlines and read full stories in Markdown via Glow
 
+- Print hard copies of articles and bookmarks
+
 - Bookmark stories for later
 
 - Export articles or bookmarks as markdown files for later reading
