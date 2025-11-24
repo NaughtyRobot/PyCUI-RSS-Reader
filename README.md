@@ -60,6 +60,8 @@ Once set up, pressing **T** will display a concise summary of the selected artic
 
 **B**:	Bookmark the selected article
 
+**P**:	Print selected article or bookmark to default printer
+
 **D**:	Delete feed or bookmark
 
 **R**:	Refresh current feed
