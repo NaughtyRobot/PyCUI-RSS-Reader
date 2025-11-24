@@ -50,11 +50,13 @@ class Interface:
         self.link_menu.add_key_command(py_cui.keys.KEY_ENTER, self.get_article)
         self.link_menu.add_key_command(py_cui.keys.KEY_R_LOWER, self.refresh_feed)
         self.link_menu.add_key_command(py_cui.keys.KEY_X_LOWER, self.export_article_popup)
+        self.link_menu.add_key_command(py_cui.keys.KEY_P_LOWER, self.print_article)
 
         self.bookmarks_menu.add_key_command(py_cui.keys.KEY_T_LOWER, self.tl_dr)
         self.bookmarks_menu.add_key_command(py_cui.keys.KEY_ENTER, self.get_bookmark)
         self.bookmarks_menu.add_key_command(py_cui.keys.KEY_D_LOWER, self.delete_bookmark)
         self.bookmarks_menu.add_key_command(py_cui.keys.KEY_X_LOWER, self.export_article_popup)
+        self.bookmarks_menu.add_key_command(py_cui.keys.KEY_P_LOWER, self.print_article)
 
     def add_feed(self, target: str = None, title: str = None):
         """ Add a new RSS feed to feedhandler.feeddict. 'target' and 'title' specifies an existing feed to refresh. """
@@ -138,6 +140,31 @@ class Interface:
         story_text  = fh.get_article(url)
         self.do_glow_text(story_text)
 
+    def print_article(self):
+        if self.link_menu.is_selected():
+            url = self.current_feed['headlines'][self.link_menu.get()]
+        elif self.bookmarks_menu.is_selected():
+            url = fh.bookmarks_dict[self.bookmarks_menu.get()]
+
+        story_text = fh.get_article(url)
+
+        with open('print_file.md', 'w') as f:
+            f.write(story_text)
+
+        try:
+            glow = subprocess.Popen(['glow', 'print_file.md'], stdout = subprocess.PIPE)
+        
+            lp = subprocess.Popen(['lp', '-o', 'orientation-requested=3'],
+            stdin = glow.stdout,
+            stdout = subprocess.PIPE)
+                
+            glow.stdout.close()
+            lp.communicate()
+                
+            self.root.show_message_popup('Success', 'Document printed OK.')
+        except Exception as e:
+            self.show_error_message(f"Error printing: {e}")
+
     def do_glow_text(self, text:str):
         """ Takes a string and passes it to Glow in a blocking subprocee """
         curses.endwin()
@@ -191,7 +218,8 @@ class Interface:
             " **D**       : Delete feed or bookmark\n"
             " **R**       : Refresh current feed\n"
             " **S**       : Save all feeds and bookmarks\n"
-            " **X**       : Export selected file or bookmark as markdown\n"
+            " **X**       : Export selected article or bookmark as markdown\n"
+            " **P**       : Print selected article or bookmark to default printer\n"
             " **Q**       : Quit the app\n"
             " **H**       : Show this help\n\n"
             "**All feeds and bookmarks are automatically saved when you quit the application.**\n\n"
